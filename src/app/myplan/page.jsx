@@ -10,11 +10,41 @@ export default function MyPlan() {
   const { runningPlan, savedPlan } = useContext(PlanContext);
 
   const [activeTab, setActiveTab] = useState("today");
+  const [sortBy, setSortBy] = useState("duration");
 
-  // Active plan
+  // ================= ACTIVE PLAN =================
   const activePlan = activeTab === "today" ? runningPlan : savedPlan;
 
-  // Statistics
+  // ================= SORTING =================
+  const sortedPlan = [...activePlan].sort((a, b) => {
+    // Sort by duration
+    if (sortBy === "duration") {
+      return Number(a.duration || 0) - Number(b.duration || 0);
+    }
+
+    // Sort by difficulty
+    if (sortBy === "difficulty") {
+      const difficultyOrder = {
+        Beginner: 1,
+        Intermediate: 2,
+        Advanced: 3,
+      };
+
+      return (
+        (difficultyOrder[a.difficulty] || 99) -
+        (difficultyOrder[b.difficulty] || 99)
+      );
+    }
+
+    // Sort by name
+    if (sortBy === "name") {
+      return (a.name || "").localeCompare(b.name || "");
+    }
+
+    return 0;
+  });
+
+  // ================= STATISTICS =================
   const totalExercises = activePlan.length;
 
   const totalMinutes = activePlan.reduce(
@@ -68,7 +98,6 @@ export default function MyPlan() {
             rounded-lg
             border border-[#232732]
             bg-[#13161D]
-
             sm:grid-cols-3
           "
         >
@@ -76,8 +105,8 @@ export default function MyPlan() {
           <div
             className="
               px-5 py-4
-              sm:px-6 sm:py-6
               sm:border-r sm:border-[#232732]
+              sm:px-6 sm:py-6
             "
           >
             <h3
@@ -109,7 +138,6 @@ export default function MyPlan() {
             className="
               border-t border-[#232732]
               px-5 py-4
-
               sm:border-t-0
               sm:border-r
               sm:border-[#232732]
@@ -145,7 +173,6 @@ export default function MyPlan() {
             className="
               border-t border-[#232732]
               px-5 py-4
-
               sm:border-t-0
               sm:px-6 sm:py-6
             "
@@ -177,20 +204,19 @@ export default function MyPlan() {
 
         {/* ================= PLAN CONTENT ================= */}
         <div className="w-full py-5">
-          {/* Controls */}
+          {/* ================= CONTROLS ================= */}
           <div
             className="
               mb-4
               flex
               flex-col
               gap-3
-
               sm:flex-row
               sm:items-center
               sm:justify-between
             "
           >
-            {/* Tabs */}
+            {/* ================= TABS ================= */}
             <div
               className="
                 flex
@@ -201,7 +227,6 @@ export default function MyPlan() {
                 border border-[#252932]
                 bg-[#15181F]
                 p-1
-
                 sm:w-fit
               "
             >
@@ -216,9 +241,7 @@ export default function MyPlan() {
                   text-[10px]
                   transition-all
                   duration-200
-
                   sm:flex-none
-
                   ${
                     activeTab === "today"
                       ? "bg-[#252A34] text-white shadow-sm"
@@ -240,9 +263,7 @@ export default function MyPlan() {
                   text-[10px]
                   transition-all
                   duration-200
-
                   sm:flex-none
-
                   ${
                     activeTab === "saved"
                       ? "bg-[#252A34] text-white shadow-sm"
@@ -254,13 +275,15 @@ export default function MyPlan() {
               </button>
             </div>
 
-            {/* Sort */}
+            {/* ================= SORT ================= */}
             <div className="flex items-center justify-between gap-2 sm:justify-end">
               <span className="font-inter text-[9px] text-gray-500">
                 Sort by
               </span>
 
               <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
                 className="
                   h-8
                   min-h-0
@@ -273,11 +296,9 @@ export default function MyPlan() {
                   text-[9px]
                   text-gray-300
                   outline-none
-
                   sm:h-7
                   sm:w-24
                 "
-                defaultValue="duration"
               >
                 <option value="duration">Duration</option>
                 <option value="difficulty">Difficulty</option>
@@ -291,7 +312,7 @@ export default function MyPlan() {
             <>
               {runningPlan.length > 0 ? (
                 <div className="w-full">
-                  <RunningCard />
+                  <RunningCard exercises={sortedPlan} />
                 </div>
               ) : (
                 <div
@@ -310,7 +331,6 @@ export default function MyPlan() {
                     px-4
                     py-16
                     text-center
-
                     sm:min-h-80
                   "
                 >
@@ -320,7 +340,6 @@ export default function MyPlan() {
                       text-lg
                       font-bold
                       text-primary
-
                       sm:text-xl
                     "
                   >
@@ -335,7 +354,6 @@ export default function MyPlan() {
                       text-[11px]
                       leading-5
                       text-[#8A92A0]
-
                       sm:text-[12px]
                     "
                   >
@@ -356,7 +374,6 @@ export default function MyPlan() {
                       text-black
                       transition
                       hover:bg-[#C5FF33]
-
                       sm:px-6
                       sm:text-[12px]
                     "
@@ -373,7 +390,7 @@ export default function MyPlan() {
             <>
               {savedPlan.length > 0 ? (
                 <div className="w-full">
-                  <SavedPlanCard />
+                  <SavedPlanCard exercises={sortedPlan} />
                 </div>
               ) : (
                 <div
@@ -392,7 +409,6 @@ export default function MyPlan() {
                     px-4
                     py-16
                     text-center
-
                     sm:min-h-80
                   "
                 >
@@ -402,7 +418,6 @@ export default function MyPlan() {
                       text-lg
                       font-bold
                       text-primary
-
                       sm:text-xl
                     "
                   >
@@ -417,7 +432,6 @@ export default function MyPlan() {
                       text-[11px]
                       leading-5
                       text-[#8A92A0]
-
                       sm:text-[12px]
                     "
                   >
@@ -438,7 +452,6 @@ export default function MyPlan() {
                       text-black
                       transition
                       hover:bg-[#C5FF33]
-
                       sm:px-6
                       sm:text-[12px]
                     "
