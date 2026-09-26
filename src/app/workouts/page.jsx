@@ -3,13 +3,12 @@ import WorkOutCard from "@/components/WorkOutCard";
 
 const getData = async () => {
   let res = await fetch("https://api.abcz.workers.dev/api/fitlog");
-  let workData = res.json();
+  let workData = await res.json();
   return workData;
 };
 
-export const WorkOuts = async () => {
+export default async function WorkOuts() {
   const data = await getData();
-  console.log(data);
 
   return (
     <>
@@ -77,4 +76,4 @@ export const WorkOuts = async () => {
       {/* Library Section End */}
     </>
   );
-};
+}
