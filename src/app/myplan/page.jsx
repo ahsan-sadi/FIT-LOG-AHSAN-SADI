@@ -362,7 +362,6 @@ export default function MyPlan() {
                     type="button"
                     className="
                       mt-4
-                      w-full
                       rounded-lg
                       border border-brand
                       bg-brand
@@ -443,7 +442,6 @@ export default function MyPlan() {
                     type="button"
                     className="
                       mt-4
-                      w-full
                       rounded-lg
                       border border-brand
                       bg-brand
