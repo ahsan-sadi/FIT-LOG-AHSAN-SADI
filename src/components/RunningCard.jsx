@@ -11,13 +11,13 @@ import { FaRegStar } from "react-icons/fa";
 import { PlanContext } from "@/context/PlanProvider";
 import Link from "next/link";
 
-const RunningCard = () => {
+const RunningCard = ({ exercises }) => {
   const { runningPlan, removeFromRunningPlan, markAsDone } =
     useContext(PlanContext);
 
   return (
     <div className="space-y-3">
-      {runningPlan.map((exercise) => (
+      {exercises.map((exercise) => (
         <div
           key={exercise.id}
           className="flex w-full items-center gap-3 rounded-xl border border-[#252932] bg-[#15181F] p-4"

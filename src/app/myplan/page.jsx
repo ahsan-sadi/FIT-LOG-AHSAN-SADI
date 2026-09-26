@@ -12,37 +12,26 @@ export default function MyPlan() {
   const [activeTab, setActiveTab] = useState("today");
   const [sortBy, setSortBy] = useState("duration");
 
+  let sortData = (plan) => {
+    let sortedPlan = [...plan];
+
+    if (sortBy === "duration") {
+      sortedPlan.sort((a, b) => Number(a.duration) - Number(b.duration));
+    } else if (sortBy === "calories") {
+      sortedPlan.sort(
+        (a, b) => Number(b.caloriesBurned) - Number(a.caloriesBurned),
+      );
+    } else if (sortBy === "rating") {
+      sortedPlan.sort((a, b) => Number(b.rating) - Number(a.rating));
+    }
+    return sortedPlan;
+  };
+
+  let activePlanData = sortData(runningPlan);
+  let savedPlanData = sortData(savedPlan);
+
   // ================= ACTIVE PLAN =================
   const activePlan = activeTab === "today" ? runningPlan : savedPlan;
-
-  // ================= SORTING =================
-  const sortedPlan = [...activePlan].sort((a, b) => {
-    // Sort by duration
-    if (sortBy === "duration") {
-      return Number(a.duration || 0) - Number(b.duration || 0);
-    }
-
-    // Sort by difficulty
-    if (sortBy === "difficulty") {
-      const difficultyOrder = {
-        Beginner: 1,
-        Intermediate: 2,
-        Advanced: 3,
-      };
-
-      return (
-        (difficultyOrder[a.difficulty] || 99) -
-        (difficultyOrder[b.difficulty] || 99)
-      );
-    }
-
-    // Sort by name
-    if (sortBy === "name") {
-      return (a.name || "").localeCompare(b.name || "");
-    }
-
-    return 0;
-  });
 
   // ================= STATISTICS =================
   const totalExercises = activePlan.length;
@@ -309,8 +298,8 @@ export default function MyPlan() {
                 "
               >
                 <option value="duration">Duration</option>
-                <option value="difficulty">Difficulty</option>
-                <option value="name">Name</option>
+                <option value="calories">Calories</option>
+                <option value="rating">Rating</option>
               </select>
             </div>
           </div>
@@ -320,7 +309,7 @@ export default function MyPlan() {
             <>
               {runningPlan.length > 0 ? (
                 <div className="w-full">
-                  <RunningCard exercises={sortedPlan} />
+                  <RunningCard exercises={activePlanData} />
                 </div>
               ) : (
                 <div
@@ -401,7 +390,7 @@ export default function MyPlan() {
             <>
               {savedPlan.length > 0 ? (
                 <div className="w-full">
-                  <SavedPlanCard exercises={sortedPlan} />
+                  <SavedPlanCard exercises={savedPlanData} />
                 </div>
               ) : (
                 <div

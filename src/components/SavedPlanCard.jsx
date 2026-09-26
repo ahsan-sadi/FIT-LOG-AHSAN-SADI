@@ -8,13 +8,13 @@ import { PlanContext } from "@/context/PlanProvider";
 import CardImage from "@/assets/CardImage.png";
 import Link from "next/link";
 
-const SavedPlanCard = () => {
+const SavedPlanCard = ({ exercises }) => {
   const { savedPlan, removeFromSavedPlan, addToRunningPlan } =
     useContext(PlanContext);
 
   return (
     <div className="w-full space-y-3">
-      {savedPlan.map((exercise) => (
+      {exercises.map((exercise) => (
         <div
           key={exercise.id}
           className="
