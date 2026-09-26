@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useState } from "react";
+import { toast } from "react-toastify";
 
 export const PlanContext = createContext();
 
@@ -10,10 +11,12 @@ export default function PlanProvider({ children }) {
   const [completedPlan, setCompletedPlan] = useState([]);
 
   const removeFromRunningPlan = (id) => {
+    toast.success("Remove successfully");
     setRunningPlan((prev) => prev.filter((exercise) => exercise.id !== id));
   };
 
   const markAsDone = (id) => {
+    toast.success("Great! Yove done it");
     setRunningPlan((prev) => {
       const exercise = prev.find((item) => item.id === id);
 
@@ -26,6 +29,7 @@ export default function PlanProvider({ children }) {
   };
 
   const removeFromSavedPlan = (id) => {
+    toast.success("Remove successfully");
     setSavedPlan((prev) => prev.filter((exercise) => exercise.id !== id));
   };
 
