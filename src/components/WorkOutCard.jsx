@@ -16,7 +16,7 @@ const WorkOutCard = ({ data }) => {
           <div className="img relative w-full h-48">
             <Image
               className="object-cover"
-              src={CardImage}
+              src={data.image}
               alt="Card Image"
               fill
             ></Image>

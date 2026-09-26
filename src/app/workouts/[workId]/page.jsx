@@ -2,7 +2,8 @@ import React from "react";
 import CardImage from "@/assets/planImage.png";
 import Image from "next/image";
 import { FaRegBookmark } from "react-icons/fa";
-import { FiCalendar } from "react-icons/fi";
+import TodeyPlanBtn from "@/components/TodeyPlanBtn";
+import SavePlanBtn from "@/components/SavePlanBtn";
 
 const ItemDetails = async ({ params }) => {
   let param = await params;
@@ -151,44 +152,13 @@ const ItemDetails = async ({ params }) => {
                       <span>{instraction}</span>
                     </li>
                   ))}
-                  {/*                   
-
-                  <li className="flex gap-2 font-inter text-sm leading-5.5 text-[#D1D5DB]">
-                    <span>2.</span>
-                    <span>
-                      Unrack with locked elbows and lower the bar to mid-chest.
-                    </span>
-                  </li>
-
-                  <li className="flex gap-2 font-inter text-sm leading-5.5 text-[#D1D5DB]">
-                    <span>3.</span>
-                    <span>
-                      Press up in a slight arc until elbows lock without
-                      bouncing.
-                    </span>
-                  </li>
-
-                  <li className="flex gap-2 font-inter text-sm leading-5.5 text-[#D1D5DB]">
-                    <span>4.</span>
-                    <span>
-                      Keep shoulder blades pinched and a natural arch in the
-                      back.
-                    </span>
-                  </li> */}
                 </ol>
               </div>
 
               {/* Buttons */}
               <div className="mt-5 flex gap-2">
-                <button className="flex items-center gap-1.5 rounded-md border border-brand bg-brand px-6 py-3 font-inter text-sm font-semibold text-black transition">
-                  <FiCalendar size={14} />
-                  Add to today's plan
-                </button>
-
-                <button className="flex px-6 py-3  ites-center gap-1.5 rounded-md border border-[#374151] font-inter text-sm text-[#E5E7EB] transition">
-                  <FaRegBookmark size={14} />
-                  Save for later
-                </button>
+                <TodeyPlanBtn data={each} />
+                <SavePlanBtn data={each} />
               </div>
             </div>
           </div>

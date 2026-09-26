@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import "./globals.css";
 import { Inter, Oswald } from "next/font/google";
 import Footer from "@/components/Footer";
+import PlanProvider from "@/context/PlanProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,9 +24,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${oswald.variable}`}>
       <body className="min-h-full flex flex-col">
-        <Navbar />
-        {children}
-        <Footer />
+        <PlanProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </PlanProvider>
       </body>
     </html>
   );
