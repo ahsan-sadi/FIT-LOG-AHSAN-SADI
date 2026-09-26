@@ -10,28 +10,24 @@ const Hero = () => {
         container mx-auto
         mt-6
         flex flex-col
-        gap-8
+        gap-6
         rounded-xl
         bg-[#15171D]
-        p-6
-
-        sm:mt-8
-        sm:p-8
-
+        p-6 sm:mt-8 sm:p-8
         lg:mt-12
         lg:flex-row
         lg:items-center
         lg:justify-between
-        lg:gap-10
+        lg:gap-8
         lg:p-14
       "
     >
       {/* ================= CONTENT ================= */}
-      <div className="w-full lg:max-w-140">
+      <div className="w-full lg:max-w-150">
         <h3
           className="
             font-inter
-            text-[10px]
+            text-[11px]
             font-bold
             text-brand
             sm:text-[11px]
@@ -40,7 +36,7 @@ const Hero = () => {
           WORKOUT LIBRARY
         </h3>
         <h2
-          className=" mt-3 w-fullfont-oswald text-[36px] font-extrabold leading-[1.05]  text-primary sm:mt-4 sm:text-[48px] lg:mt-5 lg:text-[60px] lg:leading-15
+          className=" mt-3 w-full font-oswald text-[36px] font-extrabold leading-[1.05]  text-primary sm:mt-4 sm:text-[48px] lg:mt-5 lg:text-[60px] lg:leading-15
           "
         >
           TRAIN WITH INTENT. LOG EVERY SET.
@@ -48,7 +44,7 @@ const Hero = () => {
 
         {/* Description */}
         <p
-          className="  mt-4  w-full max-w-125 font-inter text-[13px] leading-5  text-secondary sm:mt-5 sm:text-sm sm:leading-6 lg:text-base
+          className="mt-4  w-full max-w-125 font-inter text-[13px] leading-5  text-secondary sm:mt-5 sm:text-sm sm:leading-6 lg:text-base
           "
         >
           FitLog is a dark, no-nonsense gym companion: pick a lift, lock it into
