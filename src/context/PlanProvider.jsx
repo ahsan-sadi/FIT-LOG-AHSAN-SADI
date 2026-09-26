@@ -1,20 +1,69 @@
 "use client";
-import React, { createContext, useState } from "react";
 
-export let PlanContext = createContext({});
+import { createContext, useState } from "react";
 
-const PlanProvider = ({ children }) => {
-  let [runningPlan, setRunningPlan] = useState([]);
-  let [savedPlan, setSavedPlan] = useState([]);
+export const PlanContext = createContext();
 
-  let states = {
-    runningPlan,
-    setRunningPlan,
-    savedPlan,
-    setSavedPlan,
+export default function PlanProvider({ children }) {
+  const [runningPlan, setRunningPlan] = useState([]);
+  const [savedPlan, setSavedPlan] = useState([]);
+  const [completedPlan, setCompletedPlan] = useState([]);
+
+  // Remove from Today's Plan
+  const removeFromRunningPlan = (id) => {
+    setRunningPlan((prev) => prev.filter((exercise) => exercise.id !== id));
   };
 
-  return <PlanContext.Provider value={states}>{children}</PlanContext.Provider>;
-};
+  // Mark exercise as completed
+  const markAsDone = (id) => {
+    setRunningPlan((prev) => {
+      const exercise = prev.find((item) => item.id === id);
 
-export default PlanProvider;
+      if (!exercise) return prev;
+
+      setCompletedPlan((completed) => [...completed, exercise]);
+
+      return prev.filter((item) => item.id !== id);
+    });
+  };
+
+  // Remove from Saved Plan
+  const removeFromSavedPlan = (id) => {
+    setSavedPlan((prev) => prev.filter((exercise) => exercise.id !== id));
+  };
+
+  // Move saved exercise to today's plan
+  const addToRunningPlan = (exercise) => {
+    setRunningPlan((prev) => {
+      const alreadyExists = prev.some((item) => item.id === exercise.id);
+
+      if (alreadyExists) {
+        return prev;
+      }
+
+      return [...prev, exercise];
+    });
+  };
+
+  return (
+    <PlanContext.Provider
+      value={{
+        runningPlan,
+        setRunningPlan,
+
+        savedPlan,
+        setSavedPlan,
+
+        completedPlan,
+
+        removeFromRunningPlan,
+        markAsDone,
+
+        removeFromSavedPlan,
+        addToRunningPlan,
+      }}
+    >
+      {children}
+    </PlanContext.Provider>
+  );
+}

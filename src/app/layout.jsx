@@ -3,6 +3,7 @@ import "./globals.css";
 import { Inter, Oswald } from "next/font/google";
 import Footer from "@/components/Footer";
 import PlanProvider from "@/context/PlanProvider";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
           <Navbar />
           {children}
           <Footer />
+          <ToastContainer />
         </PlanProvider>
       </body>
     </html>

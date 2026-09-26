@@ -1,83 +1,454 @@
-import Image from "next/image";
-import { FaRegBookmark } from "react-icons/fa";
-import { FiCalendar } from "react-icons/fi";
+"use client";
 
-import CardImage from "@/assets/planImage.png";
-import Link from "next/link";
+import { useContext, useState } from "react";
+
+import RunningCard from "@/components/RunningCard";
+import SavedPlanCard from "@/components/SavedPlanCard";
+import { PlanContext } from "@/context/PlanProvider";
 
 export default function MyPlan() {
+  const { runningPlan, savedPlan } = useContext(PlanContext);
+
+  const [activeTab, setActiveTab] = useState("today");
+
+  // Active plan
+  const activePlan = activeTab === "today" ? runningPlan : savedPlan;
+
+  // Statistics
+  const totalExercises = activePlan.length;
+
+  const totalMinutes = activePlan.reduce(
+    (total, exercise) => total + Number(exercise.duration || 0),
+    0,
+  );
+
+  const totalCalories = activePlan.reduce(
+    (total, exercise) => total + Number(exercise.caloriesBurned || 0),
+    0,
+  );
+
   return (
-    <section className="container mx-auto">
-      <div className="head">
-        <h2 className="font-oswald font-bold text-3xl leading-9 text-primary">
-          MY PLAN
-        </h2>
-        <h3 className="font-inter text-sm text-[#8A92A0] leading-5">
-          Cap of five lifts for today. Finish them, then load more.
-        </h3>
-      </div>
-      <div className="details flex justify-between items-center gap-8 py-8 px-6 border border-[#232732] bg-[#13161D] rounded-lg mt-6 ">
-        <div className="exercise w-full border-r border-r-[#232732]">
-          <h3 className="font-inter font-[12px] text-[#8A92A0]">Exercises</h3>
-          <span className="font-oswald font-bold text-brand text-4xl leading-10">
-            2
-          </span>
-        </div>
-        <div className="Minute w-full border-r border-r-[#232732]">
-          <h3 className="font-inter font-[12px] text-[#8A92A0]">Minutes</h3>
-          <span className="font-oswald font-bold text-primary text-4xl leading-10">
-            23
-          </span>
-        </div>
-        <div className="Calorie w-full">
-          <h3 className="font-inter font-[12px] text-[#8A92A0]">Calories</h3>
-          <span className="font-oswald font-bold text-primary text-4xl leading-10">
-            190
-          </span>
-        </div>
-      </div>
-
-      <div className="w-full px-2 py-5 text-white">
-        {/* Top Controls */}
-        <div className="mb-4 flex items-center justify-between">
-          {/* Tabs */}
-          <div className="tabs tabs-boxed h-7 rounded-md border border-[#242832] bg-[#15181e] p-0.5">
-            <button className="tab h-6 min-h-0 px-3 text-[9px] text-gray-500">
-              Today's Plan
-            </button>
-
-            <button className="tab tab-active h-6 min-h-0 rounded bg-[#20242c] px-4 text-[9px] text-white">
-              Saved
-            </button>
-          </div>
-
-          {/* Sort */}
-          <div className="flex items-center gap-2">
-            <span className="text-[9px] text-gray-500">Sort by</span>
-
-            <select
-              className="select select-sm h-7 min-h-0 w-14 rounded-md border border-[#292e38] bg-[#15181e] px-2 text-[9px] text-gray-300 outline-none"
-              defaultValue="duration"
-            >
-              <option value="duration">Duration</option>
-              <option value="difficulty">Difficulty</option>
-              <option value="name">Name</option>
-            </select>
-          </div>
-        </div>
-
-        {/* Empty State */}
-        <div className="flex py-24 flex-col items-center justify-center rounded-lg border border-dashed border-[#252a32] bg-[#0e1014]">
-          <h2 className="font-oswald font-bold text-xl text-primary">
-            NOTHING HERE YET
+    <section className="w-full px-4 py-6 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-7xl">
+        {/* ================= HEADER ================= */}
+        <div>
+          <h2
+            className="
+              font-oswald
+              text-2xl font-bold leading-8
+              text-primary
+              sm:text-3xl sm:leading-9
+            "
+          >
+            MY PLAN
           </h2>
-          <h3 className="font-inter text-[12px] text-[#8A92A0]">
-            Browse the library and add a lift to get today moving.
-          </h3>
 
-          <button className="font-inter font-bold text-[12px] text-black bg-brand py-2.5 px-6 rounded-lg border border-solid border-brand mt-2.5 cursor-pointer">
-            GO TO WORKOUTS
-          </button>
+          <h3
+            className="
+              mt-1
+              max-w-xl
+              font-inter
+              text-[11px]
+              leading-5
+              text-[#8A92A0]
+              sm:text-sm
+            "
+          >
+            Cap of five lifts for today. Finish them, then load more.
+          </h3>
+        </div>
+
+        {/* ================= STATISTICS ================= */}
+        <div
+          className="
+            mt-5
+            grid
+            grid-cols-1
+            overflow-hidden
+            rounded-lg
+            border border-[#232732]
+            bg-[#13161D]
+
+            sm:grid-cols-3
+          "
+        >
+          {/* Exercises */}
+          <div
+            className="
+              px-5 py-4
+              sm:px-6 sm:py-6
+              sm:border-r sm:border-[#232732]
+            "
+          >
+            <h3
+              className="
+                font-inter
+                text-[11px]
+                text-[#8A92A0]
+                sm:text-[12px]
+              "
+            >
+              Exercises
+            </h3>
+
+            <span
+              className="
+                font-oswald
+                text-3xl font-bold
+                leading-9
+                text-brand
+                sm:text-4xl sm:leading-10
+              "
+            >
+              {totalExercises}
+            </span>
+          </div>
+
+          {/* Minutes */}
+          <div
+            className="
+              border-t border-[#232732]
+              px-5 py-4
+
+              sm:border-t-0
+              sm:border-r
+              sm:border-[#232732]
+              sm:px-6 sm:py-6
+            "
+          >
+            <h3
+              className="
+                font-inter
+                text-[11px]
+                text-[#8A92A0]
+                sm:text-[12px]
+              "
+            >
+              Minutes
+            </h3>
+
+            <span
+              className="
+                font-oswald
+                text-3xl font-bold
+                leading-9
+                text-primary
+                sm:text-4xl sm:leading-10
+              "
+            >
+              {totalMinutes}
+            </span>
+          </div>
+
+          {/* Calories */}
+          <div
+            className="
+              border-t border-[#232732]
+              px-5 py-4
+
+              sm:border-t-0
+              sm:px-6 sm:py-6
+            "
+          >
+            <h3
+              className="
+                font-inter
+                text-[11px]
+                text-[#8A92A0]
+                sm:text-[12px]
+              "
+            >
+              Calories
+            </h3>
+
+            <span
+              className="
+                font-oswald
+                text-3xl font-bold
+                leading-9
+                text-primary
+                sm:text-4xl sm:leading-10
+              "
+            >
+              {totalCalories}
+            </span>
+          </div>
+        </div>
+
+        {/* ================= PLAN CONTENT ================= */}
+        <div className="w-full py-5">
+          {/* Controls */}
+          <div
+            className="
+              mb-4
+              flex
+              flex-col
+              gap-3
+
+              sm:flex-row
+              sm:items-center
+              sm:justify-between
+            "
+          >
+            {/* Tabs */}
+            <div
+              className="
+                flex
+                h-9
+                w-full
+                items-center
+                rounded-lg
+                border border-[#252932]
+                bg-[#15181F]
+                p-1
+
+                sm:w-fit
+              "
+            >
+              <button
+                type="button"
+                onClick={() => setActiveTab("today")}
+                className={`
+                  flex-1
+                  rounded-md
+                  px-4 py-1.5
+                  font-inter
+                  text-[10px]
+                  transition-all
+                  duration-200
+
+                  sm:flex-none
+
+                  ${
+                    activeTab === "today"
+                      ? "bg-[#252A34] text-white shadow-sm"
+                      : "text-[#777D88] hover:text-white"
+                  }
+                `}
+              >
+                Today's Plan
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setActiveTab("saved")}
+                className={`
+                  flex-1
+                  rounded-md
+                  px-4 py-1.5
+                  font-inter
+                  text-[10px]
+                  transition-all
+                  duration-200
+
+                  sm:flex-none
+
+                  ${
+                    activeTab === "saved"
+                      ? "bg-[#252A34] text-white shadow-sm"
+                      : "text-[#777D88] hover:text-white"
+                  }
+                `}
+              >
+                Saved
+              </button>
+            </div>
+
+            {/* Sort */}
+            <div className="flex items-center justify-between gap-2 sm:justify-end">
+              <span className="font-inter text-[9px] text-gray-500">
+                Sort by
+              </span>
+
+              <select
+                className="
+                  h-8
+                  min-h-0
+                  w-24
+                  rounded-md
+                  border border-[#292e38]
+                  bg-[#15181e]
+                  px-2
+                  font-inter
+                  text-[9px]
+                  text-gray-300
+                  outline-none
+
+                  sm:h-7
+                  sm:w-24
+                "
+                defaultValue="duration"
+              >
+                <option value="duration">Duration</option>
+                <option value="difficulty">Difficulty</option>
+                <option value="name">Name</option>
+              </select>
+            </div>
+          </div>
+
+          {/* ================= TODAY ================= */}
+          {activeTab === "today" && (
+            <>
+              {runningPlan.length > 0 ? (
+                <div className="w-full">
+                  <RunningCard />
+                </div>
+              ) : (
+                <div
+                  className="
+                    flex
+                    min-h-80
+                    w-full
+                    flex-col
+                    items-center
+                    justify-center
+                    rounded-lg
+                    border
+                    border-dashed
+                    border-[#252a32]
+                    bg-[#0e1014]
+                    px-4
+                    py-16
+                    text-center
+
+                    sm:min-h-80
+                  "
+                >
+                  <h2
+                    className="
+                      font-oswald
+                      text-lg
+                      font-bold
+                      text-primary
+
+                      sm:text-xl
+                    "
+                  >
+                    NOTHING HERE YET
+                  </h2>
+
+                  <h3
+                    className="
+                      mt-1
+                      max-w-sm
+                      font-inter
+                      text-[11px]
+                      leading-5
+                      text-[#8A92A0]
+
+                      sm:text-[12px]
+                    "
+                  >
+                    Browse the library and add a lift to get today moving.
+                  </h3>
+
+                  <button
+                    type="button"
+                    className="
+                      mt-4
+                      rounded-lg
+                      border border-brand
+                      bg-brand
+                      px-5 py-2.5
+                      font-inter
+                      text-[10px]
+                      font-bold
+                      text-black
+                      transition
+                      hover:bg-[#C5FF33]
+
+                      sm:px-6
+                      sm:text-[12px]
+                    "
+                  >
+                    GO TO WORKOUTS
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+
+          {/* ================= SAVED ================= */}
+          {activeTab === "saved" && (
+            <>
+              {savedPlan.length > 0 ? (
+                <div className="w-full">
+                  <SavedPlanCard />
+                </div>
+              ) : (
+                <div
+                  className="
+                    flex
+                    min-h-70
+                    w-full
+                    flex-col
+                    items-center
+                    justify-center
+                    rounded-lg
+                    border
+                    border-dashed
+                    border-[#252a32]
+                    bg-[#0e1014]
+                    px-4
+                    py-16
+                    text-center
+
+                    sm:min-h-80
+                  "
+                >
+                  <h2
+                    className="
+                      font-oswald
+                      text-lg
+                      font-bold
+                      text-primary
+
+                      sm:text-xl
+                    "
+                  >
+                    NOTHING HERE YET
+                  </h2>
+
+                  <h3
+                    className="
+                      mt-1
+                      max-w-sm
+                      font-inter
+                      text-[11px]
+                      leading-5
+                      text-[#8A92A0]
+
+                      sm:text-[12px]
+                    "
+                  >
+                    Browse the library and save exercises to see them here.
+                  </h3>
+
+                  <button
+                    type="button"
+                    className="
+                      mt-4
+                      rounded-lg
+                      border border-brand
+                      bg-brand
+                      px-5 py-2.5
+                      font-inter
+                      text-[10px]
+                      font-bold
+                      text-black
+                      transition
+                      hover:bg-[#C5FF33]
+
+                      sm:px-6
+                      sm:text-[12px]
+                    "
+                  >
+                    GO TO WORKOUTS
+                  </button>
+                </div>
+              )}
+            </>
+          )}
         </div>
       </div>
     </section>
