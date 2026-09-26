@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import RunningCard from "@/components/RunningCard";
 import SavedPlanCard from "@/components/SavedPlanCard";
 import { PlanContext } from "@/context/PlanProvider";
+import Link from "next/link";
 
 export default function MyPlan() {
   const { runningPlan, savedPlan } = useContext(PlanContext);
@@ -358,10 +359,12 @@ export default function MyPlan() {
                     Browse the library and add a lift to get today moving.
                   </h3>
 
-                  <button
-                    type="button"
-                    className="
+                  <Link href="/">
+                    <button
+                      type="button"
+                      className="
                       mt-4
+                      cursor-pointer
                       rounded-lg
                       border border-brand
                       bg-brand
@@ -376,9 +379,10 @@ export default function MyPlan() {
                       sm:px-6
                       sm:text-[12px]
                     "
-                  >
-                    GO TO WORKOUTS
-                  </button>
+                    >
+                      GO TO WORKOUTS
+                    </button>
+                  </Link>
                 </div>
               )}
             </>
@@ -438,11 +442,13 @@ export default function MyPlan() {
                     Browse the library and save exercises to see them here.
                   </h3>
 
-                  <button
-                    type="button"
-                    className="
+                  <Link href="/">
+                    <button
+                      type="button"
+                      className="
                       mt-4
                       rounded-lg
+                      cursor-pointer
                       border border-brand
                       bg-brand
                       px-5 py-2.5
@@ -456,9 +462,10 @@ export default function MyPlan() {
                       sm:px-6
                       sm:text-[12px]
                     "
-                  >
-                    GO TO WORKOUTS
-                  </button>
+                    >
+                      GO TO WORKOUTS
+                    </button>
+                  </Link>
                 </div>
               )}
             </>

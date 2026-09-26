@@ -8,7 +8,7 @@ const ItemDetails = async ({ params }) => {
   let param = await params;
   //   console.log(param);
 
-  let res = await fetch(`https://api.abcz.workers.dev/api/fitlog`);
+  let res = await fetch(`https://api.api-store.workers.dev/api/fitlog`);
   let data = await res.json();
 
   let worksData = data.filter((work) => work.id === parseInt(param.workId));

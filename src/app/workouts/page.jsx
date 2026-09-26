@@ -2,9 +2,23 @@ import React from "react";
 import WorkOutCard from "@/components/WorkOutCard";
 
 const getData = async () => {
-  let res = await fetch("https://api.abcz.workers.dev/api/fitlog");
-  let workData = res.json();
-  return workData;
+  const res = await fetch("https://api.api-store.workers.dev/api/fitlog");
+
+  if (!res.ok) {
+    throw new Error(
+      `Failed to fetch workouts: ${res.status} ${res.statusText}`,
+    );
+  }
+
+  const contentType = res.headers.get("content-type") || "";
+  if (!contentType.includes("application/json")) {
+    const text = await res.text();
+    throw new Error(
+      `Expected JSON but got "${contentType}". Response started with: ${text.slice(0, 100)}`,
+    );
+  }
+
+  return res.json();
 };
 
 const WorkOuts = async () => {
