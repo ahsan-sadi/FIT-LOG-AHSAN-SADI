@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import HeroImg from "@/assets/banner.png";
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -55,10 +56,12 @@ const Hero = () => {
         </p>
 
         {/* Button */}
-        <button
-          type="button"
-          className="
+        <Link href="#library">
+          <button
+            type="button"
+            className="
             mt-6
+             cursor-pointer
             rounded-lg
             border
             border-brand
@@ -78,9 +81,10 @@ const Hero = () => {
             sm:py-3
             sm:text-[12px]
           "
-        >
-          BROWSE WORKOUTS
-        </button>
+          >
+            BROWSE WORKOUTS
+          </button>
+        </Link>
       </div>
 
       {/* ================= IMAGE ================= */}

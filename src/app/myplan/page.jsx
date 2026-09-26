@@ -273,7 +273,7 @@ export default function MyPlan() {
 
             {/* ================= SORT ================= */}
             <div className="flex items-center justify-between gap-2 sm:justify-end">
-              <span className="font-inter text-[9px] text-gray-500 whitespace-nowrap">
+              <span className="font-inter text-[12px] text-gray-500 whitespace-nowrap">
                 Sort by
               </span>
 
@@ -290,7 +290,7 @@ export default function MyPlan() {
                   bg-[#15181e]
                   px-2
                   font-inter
-                  text-[9px]
+                  text-[12px]
                   text-gray-300
                   outline-none
                   sm:h-7

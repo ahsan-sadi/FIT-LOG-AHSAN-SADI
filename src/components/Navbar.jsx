@@ -74,29 +74,31 @@ const Navbar = () => {
           </div>
 
           {/* ================= DESKTOP COUNTS ================= */}
-          <div className="hidden items-center gap-4 md:flex">
-            {/* Plan */}
-            <div className="flex items-center gap-2">
-              <h3 className="font-inter text-[12px] font-medium text-secondary">
-                Plan
-              </h3>
+          <Link href="/myplan">
+            <div className="hidden items-center gap-4 md:flex">
+              {/* Plan */}
+              <div className="flex cursor-pointer items-center gap-2">
+                <h3 className="font-inter text-[12px] font-medium text-secondary">
+                  Plan
+                </h3>
 
-              <span className="flex h-5 w-5 items-center justify-center rounded-full border border-brand bg-brand font-inter text-[11px] font-medium text-black">
-                {planCount}
-              </span>
+                <span className="flex h-5 w-5 items-center justify-center rounded-full border border-brand bg-brand font-inter text-[11px] font-medium text-black">
+                  {planCount}
+                </span>
+              </div>
+
+              {/* Saved */}
+              <div className="flex  cursor-pointer items-center gap-2">
+                <h3 className="font-inter text-[12px] font-medium text-secondary">
+                  Saved
+                </h3>
+
+                <span className="flex h-5 w-5 items-center justify-center rounded-full border border-secondary font-inter text-[11px] font-medium text-white">
+                  {savedCount}
+                </span>
+              </div>
             </div>
-
-            {/* Saved */}
-            <div className="flex items-center gap-2">
-              <h3 className="font-inter text-[12px] font-medium text-secondary">
-                Saved
-              </h3>
-
-              <span className="flex h-5 w-5 items-center justify-center rounded-full border border-secondary font-inter text-[11px] font-medium text-white">
-                {savedCount}
-              </span>
-            </div>
-          </div>
+          </Link>
 
           {/* ================= MOBILE MENU BUTTON ================= */}
           <button
@@ -154,26 +156,30 @@ const Navbar = () => {
             {/* Mobile counters */}
             <div className="mt-3 grid grid-cols-2 gap-2">
               {/* Plan */}
-              <div className="flex items-center justify-between rounded-lg border border-[#232732] bg-[#15181F] px-4 py-3">
-                <span className="font-inter text-[11px] text-secondary">
-                  Plan
-                </span>
+              <Link href="/myplan">
+                <div className="flex cursor-pointer items-center justify-between rounded-lg border border-[#232732] bg-[#15181F] px-4 py-3">
+                  <span className="font-inter text-[11px] text-secondary">
+                    Plan
+                  </span>
 
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-brand font-inter text-[10px] font-bold text-black">
-                  {planCount}
-                </span>
-              </div>
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-brand font-inter text-[10px] font-bold text-black">
+                    {planCount}
+                  </span>
+                </div>
+              </Link>
 
               {/* Saved */}
-              <div className="flex items-center justify-between rounded-lg border border-[#232732] bg-[#15181F] px-4 py-3">
-                <span className="font-inter text-[11px] text-secondary">
-                  Saved
-                </span>
+              <Link href="/myplan">
+                <div className="flex cursor-pointer items-center justify-between rounded-lg border border-[#232732] bg-[#15181F] px-4 py-3">
+                  <span className="font-inter text-[11px] text-secondary">
+                    Saved
+                  </span>
 
-                <span className="flex h-5 w-5 items-center justify-center rounded-full border border-secondary font-inter text-[10px] font-medium text-white">
-                  {savedCount}
-                </span>
-              </div>
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full border border-secondary font-inter text-[10px] font-medium text-white">
+                    {savedCount}
+                  </span>
+                </div>
+              </Link>
             </div>
           </div>
         )}

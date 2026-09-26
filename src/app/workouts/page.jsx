@@ -15,6 +15,7 @@ export const WorkOuts = async () => {
     <>
       {/* Library Section Start */}
       <section
+        id="library"
         className="
           the-library
           container
