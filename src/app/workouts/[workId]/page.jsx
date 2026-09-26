@@ -1,7 +1,6 @@
 import React from "react";
 import CardImage from "@/assets/planImage.png";
 import Image from "next/image";
-import { FaRegBookmark } from "react-icons/fa";
 import TodeyPlanBtn from "@/components/TodeyPlanBtn";
 import SavePlanBtn from "@/components/SavePlanBtn";
 
@@ -15,37 +14,38 @@ const ItemDetails = async ({ params }) => {
   let worksData = data.filter((work) => work.id === parseInt(param.workId));
 
   return (
-    <section className="min-h-screen bg-[#0D0F13] px-4 py-6 md:px-6 lg:px-8">
+    <section className="min-h-screen bg-[#0D0F13] px-4 py-6 sm:px-6 lg:px-8">
       <div>
         {worksData.map((each) => (
           <div
             key={each.id}
-            className="container mx-auto grid grid-cols-1 gap-14 lg:grid-cols-[1fr_1fr]"
+            className="container mx-auto grid grid-cols-1 gap-8 md:gap-10 lg:grid-cols-[1fr_1fr] lg:gap-14"
           >
             {/* LEFT - IMAGE */}
-            <div className="relative overflow-hidden rounded-lg ">
+            <div className="relative aspect-4/3 w-full overflow-hidden rounded-lg sm:aspect-16/10 lg:aspect-auto lg:h-full">
               <Image
                 src={each.image}
                 alt="Barbell Bench Press"
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
               />
             </div>
 
             {/* RIGHT - CONTENT */}
             <div className="relative">
               {/* Title */}
-              <h2 className="font-oswald font-bold text-4xl leading-10 text-primary">
+              <h2 className="font-oswald font-bold text-2xl leading-tight text-primary sm:text-3xl lg:text-4xl lg:leading-10">
                 {each.name}
               </h2>
-              <h3 className="font-inter text-base text-secondary leading-6">
+              <h3 className="font-inter text-sm text-secondary leading-6 sm:text-base">
                 {each.description}
               </h3>
 
               {/* Badges */}
 
-              <div className="badges flex gap-2 mt-3 mb-5">
+              <div className="badges flex flex-wrap gap-2 mt-3 mb-5">
                 {each.muscleGroups.map((badge, idx) => (
                   <h2
                     key={idx}
@@ -59,78 +59,78 @@ const ItemDetails = async ({ params }) => {
               {/* Information Box */}
               <div className="mt-4 overflow-hidden rounded-lg border border-[#20242D] bg-[#15181F]">
                 {/* Equipment */}
-                <div className="flex h-9 items-center justify-between border-b border-[#20242D] px-3">
+                <div className="flex min-h-9 flex-wrap items-center justify-between gap-1 border-b border-[#20242D] px-3 py-1.5">
                   <span className="font-inter text-[12px] font-bold uppercase tracking-wider text-secondary">
                     Equipment
                   </span>
 
-                  <span className="font-inter text-[14px] text-medium text-[#E5E7EB]">
+                  <span className="font-inter text-[14px] text-medium text-[#E5E7EB] text-right">
                     {each.equipment}
                   </span>
                 </div>
 
                 {/* Difficulty */}
-                <div className="flex h-9 items-center justify-between border-b border-[#20242D] px-3">
+                <div className="flex min-h-9 flex-wrap items-center justify-between gap-1 border-b border-[#20242D] px-3 py-1.5">
                   <span className="font-inter text-[12px] font-bold uppercase tracking-wider text-secondary">
                     Difficulty
                   </span>
 
-                  <span className="font-inter text-[14px] text-medium text-[#E5E7EB]">
+                  <span className="font-inter text-[14px] text-medium text-[#E5E7EB] text-right">
                     {each.difficulty}
                   </span>
                 </div>
 
                 {/* Sets */}
-                <div className="flex h-9 items-center justify-between border-b border-[#20242D] px-3">
+                <div className="flex min-h-9 flex-wrap items-center justify-between gap-1 border-b border-[#20242D] px-3 py-1.5">
                   <span className="font-inter text-[12px] font-bold uppercase tracking-wider text-secondary">
                     Sets
                   </span>
 
-                  <span className="font-inter text-[14px] text-medium text-[#E5E7EB]">
+                  <span className="font-inter text-[14px] text-medium text-[#E5E7EB] text-right">
                     {each.sets}
                   </span>
                 </div>
 
                 {/* Reps */}
-                <div className="flex h-9 items-center justify-between border-b border-[#20242D] px-3">
+                <div className="flex min-h-9 flex-wrap items-center justify-between gap-1 border-b border-[#20242D] px-3 py-1.5">
                   <span className="font-inter text-[12px] font-bold uppercase tracking-wider text-secondary">
                     Reps
                   </span>
 
-                  <span className="font-inter text-[14px] text-medium text-[#E5E7EB]">
+                  <span className="font-inter text-[14px] text-medium text-[#E5E7EB] text-right">
                     {each.reps}
                   </span>
                 </div>
 
                 {/* Duration */}
-                <div className="flex h-9 items-center justify-between border-b border-[#20242D] px-3">
+                <div className="flex min-h-9 flex-wrap items-center justify-between gap-1 border-b border-[#20242D] px-3 py-1.5">
                   <span className="font-inter text-[12px] font-bold uppercase tracking-wider text-secondary">
                     Duration
                   </span>
 
-                  <span className="font-inter text-[14px] text-medium text-[#E5E7EB]">
+                  <span className="font-inter text-[14px] text-medium text-[#E5E7EB] text-right">
                     {each.duration} min
                   </span>
                 </div>
 
                 {/* Calories */}
-                <div className="flex h-9 items-center justify-between border-b border-[#20242D] px-3">
+                <div className="flex min-h-9 flex-wrap items-center justify-between gap-1 border-b border-[#20242D] px-3 py-1.5">
                   <span className="font-inter text-[12px] font-bold uppercase tracking-wider text-secondary">
                     Calories
                   </span>
 
-                  <span className="font-inter text-[14px] text-medium text-[#E5E7EB]">
+                  <span className="font-inter text-[14px] text-medium text-[#E5E7EB] text-right">
                     {each.caloriesBurned} kcal
                   </span>
                 </div>
 
                 {/* Rating */}
-                <div className="flex h-9 items-center justify-between px-3">
+                <div className="flex min-h-9 flex-wrap items-center justify-between gap-1 px-3 py-1.5">
                   <span className="font-inter text-[12px] font-bold uppercase tracking-wider text-secondary">
                     Rating
                   </span>
 
-                  <span className="font-inter text-[14px] text-medium text-[#E5E7EB]">
+                  <span className="font-inter text-[14px] text-medium text-[#E5E7EB] text-right">
                     {each.rating}
                   </span>
                 </div>
@@ -156,7 +156,7 @@ const ItemDetails = async ({ params }) => {
               </div>
 
               {/* Buttons */}
-              <div className="mt-5 flex gap-2">
+              <div className="mt-5 flex flex-col gap-2 sm:flex-row">
                 <TodeyPlanBtn data={each} />
                 <SavePlanBtn data={each} />
               </div>

@@ -98,6 +98,7 @@ export default function MyPlan() {
             rounded-lg
             border border-[#232732]
             bg-[#13161D]
+            xs:grid-cols-3
             sm:grid-cols-3
           "
         >
@@ -235,13 +236,16 @@ export default function MyPlan() {
                 onClick={() => setActiveTab("today")}
                 className={`
                   flex-1
+                  whitespace-nowrap
                   rounded-md
-                  px-4 py-1.5
+                  px-2
+                  py-1.5
                   font-inter
                   text-[10px]
                   transition-all
                   duration-200
                   sm:flex-none
+                  sm:px-4
                   ${
                     activeTab === "today"
                       ? "bg-[#252A34] text-white shadow-sm"
@@ -257,13 +261,16 @@ export default function MyPlan() {
                 onClick={() => setActiveTab("saved")}
                 className={`
                   flex-1
+                  whitespace-nowrap
                   rounded-md
-                  px-4 py-1.5
+                  px-2
+                  py-1.5
                   font-inter
                   text-[10px]
                   transition-all
                   duration-200
                   sm:flex-none
+                  sm:px-4
                   ${
                     activeTab === "saved"
                       ? "bg-[#252A34] text-white shadow-sm"
@@ -277,7 +284,7 @@ export default function MyPlan() {
 
             {/* ================= SORT ================= */}
             <div className="flex items-center justify-between gap-2 sm:justify-end">
-              <span className="font-inter text-[9px] text-gray-500">
+              <span className="font-inter text-[9px] text-gray-500 whitespace-nowrap">
                 Sort by
               </span>
 
@@ -287,7 +294,8 @@ export default function MyPlan() {
                 className="
                   h-8
                   min-h-0
-                  w-24
+                  w-full
+                  min-w-0
                   rounded-md
                   border border-[#292e38]
                   bg-[#15181e]
@@ -318,7 +326,7 @@ export default function MyPlan() {
                 <div
                   className="
                     flex
-                    min-h-80
+                    min-h-64
                     w-full
                     flex-col
                     items-center
@@ -329,9 +337,10 @@ export default function MyPlan() {
                     border-[#252a32]
                     bg-[#0e1014]
                     px-4
-                    py-16
+                    py-10
                     text-center
                     sm:min-h-80
+                    sm:py-16
                   "
                 >
                   <h2
@@ -364,6 +373,7 @@ export default function MyPlan() {
                     type="button"
                     className="
                       mt-4
+                      w-full
                       rounded-lg
                       border border-brand
                       bg-brand
@@ -374,6 +384,7 @@ export default function MyPlan() {
                       text-black
                       transition
                       hover:bg-[#C5FF33]
+                      xs:w-auto
                       sm:px-6
                       sm:text-[12px]
                     "
@@ -396,7 +407,7 @@ export default function MyPlan() {
                 <div
                   className="
                     flex
-                    min-h-70
+                    min-h-64
                     w-full
                     flex-col
                     items-center
@@ -407,9 +418,10 @@ export default function MyPlan() {
                     border-[#252a32]
                     bg-[#0e1014]
                     px-4
-                    py-16
+                    py-10
                     text-center
                     sm:min-h-80
+                    sm:py-16
                   "
                 >
                   <h2
@@ -442,6 +454,7 @@ export default function MyPlan() {
                     type="button"
                     className="
                       mt-4
+                      w-full
                       rounded-lg
                       border border-brand
                       bg-brand
@@ -452,6 +465,7 @@ export default function MyPlan() {
                       text-black
                       transition
                       hover:bg-[#C5FF33]
+                      xs:w-auto
                       sm:px-6
                       sm:text-[12px]
                     "

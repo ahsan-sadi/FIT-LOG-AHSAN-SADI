@@ -1,30 +1,54 @@
 "use client";
+
 import { PlanContext } from "@/context/PlanProvider";
-import Link from "next/link";
 import React, { useContext } from "react";
 import { FaRegBookmark } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const SavePlanBtn = ({ data }) => {
-  let { savedPlan, setSavedPlan } = useContext(PlanContext);
+  const { savedPlan, setSavedPlan } = useContext(PlanContext);
 
-  let handleClick = () => {
-    console.log("Clicked");
-    setSavedPlan([...savedPlan, data]);
+  const alreadySaved = savedPlan.some((item) => item.id === data.id);
+
+  const handleClick = () => {
+    if (alreadySaved) {
+      toast.info(`${data.name} is already saved`);
+      return;
+    }
+
+    setSavedPlan((prev) => [...prev, data]);
+
     toast.success(`You have saved ${data.name} plan`);
   };
+
   return (
-    <div>
-      <Link href="/">
-        <button
-          onClick={handleClick}
-          className="flex px-6 py-3 cursor-pointer  ites-center gap-1.5 rounded-md border border-[#374151] font-inter text-sm text-[#E5E7EB] transition"
-        >
-          <FaRegBookmark size={14} />
-          Save for later
-        </button>
-      </Link>
-    </div>
+    <button
+      type="button"
+      onClick={handleClick}
+      disabled={alreadySaved}
+      className={`
+        flex
+        items-center
+        gap-1.5
+        rounded-md
+        border
+        px-6
+        py-3
+        font-inter
+        text-sm
+        transition
+
+        ${
+          alreadySaved
+            ? "cursor-not-allowed border-[#343943] bg-[#252932] text-[#777D88]"
+            : "cursor-pointer border-[#374151] text-[#E5E7EB] hover:border-brand hover:text-brand"
+        }
+      `}
+    >
+      <FaRegBookmark size={14} />
+
+      {alreadySaved ? "Already Saved" : "Save for later"}
+    </button>
   );
 };
 
